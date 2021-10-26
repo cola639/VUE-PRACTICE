@@ -1,0 +1,77 @@
+<!doctype html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport"
+          content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+</head>
+<body>
+<div id="app">
+    <div class="demo0">
+        <label for="userName0">姓名0</label>
+        <input id="userName0" type="text" v-model="userName0">
+        <label for="age0">年龄</label>
+        <input id="age0" type="text" v-model="age0">
+        <label>爱好0：</label>
+        <input id="hobbies0" type="checkbox" v-model="hobbies0" value="0"><label for="hobbies0">抽烟</label>
+        <input id="hobbies1" type="checkbox" v-model="hobbies0" value="1"><label for="hobbies1">喝酒</label>
+        <input id="hobbies2" type="checkbox" v-model="hobbies0" value="2"><label for="hobbies2">烫头</label>
+    </div>
+    <div>
+        <label for="userName1">姓名1</label>
+        <input type="text" id="userName1" v-model="userInfo.userName1">
+        <label>爱好1：</label>
+        <input id="hobbies3" type="checkbox" v-model="userInfo.hobbies1" value="3"><label for="hobbies3">抽烟</label>
+        <input id="hobbies4" type="checkbox" v-model="userInfo.hobbies1" value="4"><label for="hobbies4">喝酒</label>
+        <input id="hobbies5" type="checkbox" v-model="userInfo.hobbies1" value="5"><label for="hobbies5">烫头</label>
+    </div>
+</div>
+<script src="https://cdn.staticfile.org/vue/2.4.2/vue.min.js"></script>
+<script>
+    var vm = new Vue({
+        el: '#app',
+        data: {
+            userName0: '',
+            age0: '',
+            hobbies0: [],
+            userInfo: {
+                userName1: '',
+                hobbies1: []
+            }
+        },
+        methods: {
+            age(curVal, oldVal) { // 值为回调
+                console.log(curVal, oldVal)
+            }
+        },
+        watch:{
+            userName0: function (curVal, oldVal) { // 值为回调
+                console.log(curVal, oldVal)
+            },
+            age0: 'age', // 值可以为methods的方法名
+            hobbies0:  function (curVal, oldVal) { // 数组的变化，值为回调，不需要深度侦听
+                console.log(curVal, oldVal)
+            },
+            userInfo: { // 监听一个对象，对应值为对象
+                handler (curVal, oldVal) {
+                    console.log(curVal, oldVal)
+                },
+                deep: true, // 对象内部的属性监听，深度侦听
+                immediate: true // 声明的时候，就立即执行handler方法
+            },
+            'userInfo.userName1': function (curVal, oldVal) { // 监听对象内部单个属性，键路径必须加上引号，值为回调
+                console.log(curVal, oldVal)
+            },
+            'userInfo.hobbies1': function (curVal, oldVal) { // 监听对象内部单个属性，键路径必须加上引号，并且对象内部数组的变化，值为回调，不需要深度侦听
+                console.log(curVal, oldVal)
+            },
+        }
+    })
+    vm.$watch("userName0",function (curVal, oldVal) { // 值为回调
+        console.log(curVal, oldVal)
+    })// 调用$watch方法来进行数据监测
+</script>
+</body>
+</html>
