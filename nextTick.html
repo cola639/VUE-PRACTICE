@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Document</title>
+    <script src="https://cdn.staticfile.org/vue/2.4.2/vue.min.js"></script>
+  </head>
+  <body>
+    <div class="next-tick" id="app">
+      <ul ref="ulRef">
+        <li v-for="(item, index) in items" :key="index">{{ item }}</li>
+      </ul>
+      <button @click="add">添加</button>
+    </div>
+  </body>
+  <script>
+    var vm = new Vue({
+      el: "#app",
+      data: {
+        items: ["辰兮01", "辰兮02", "辰兮03"],
+      },
+      methods: {
+        add() {
+          //给当前数组添加应该元素
+          this.items.push("2021辰兮要努力");
+
+          //尝试获取当前数组的长度 即使添加了获取的也是原数组的长度
+          const firstulElem = this.$refs.ulRef;
+          const firstlength = firstulElem.childNodes.length;
+          console.log("firstlength:获取当前数组的长度", firstlength);
+
+          //用 this.$nextTick才能真正获取数组改变后的新长度
+          this.$nextTick(() => {
+            // 获取子元素个数
+            const ulElem = this.$refs.ulRef;
+            const length = ulElem.childNodes.length;
+            console.log("length:获取当前数组的长度", length);
+          });
+        },
+      },
+
+      watch: {
+        firstName(newName, oldName) {
+          this.fullName = newName + " " + this.lastName;
+        },
+      },
+    });
+  </script>
+</html>
