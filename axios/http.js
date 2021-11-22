@@ -17,7 +17,7 @@ const tip = (msg) => {
 
 /**
  * 跳转登录页
- * 携带当前页面路由，以期在登录页面完成登录后返回当前页面
+ * 携带当前页面路由，以期望在登录页面完成登录后返回当前页面
  */
 const toLogin = () => {
   router.replace({
@@ -61,8 +61,8 @@ const errorHandle = (status, other) => {
 //请求配置Url
 axios.default.baseUrl = process.env.REACT_APP_API_URL;
 
-//创建axios
-axios.create({ timeout: 1000 * 12 });
+//setting timeout
+axios.defaults.timeout = 12000;
 
 //request hedaer
 axios.default.headers.post["Content-Type"] =
