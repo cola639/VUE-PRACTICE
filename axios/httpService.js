@@ -64,6 +64,10 @@ axios.default.baseUrl = process.env.REACT_APP_API_URL;
 //setting timeout
 axios.defaults.timeout = 12000;
 
+//1 post Content-Type
+// console.log(axios.defaults.headers.post["Content-Type"]);
+axios.defaults.headers.post["Content-Type"] = "application/json";
+
 //request hedaer
 axios.default.headers.post["Content-Type"] =
   "application/x-www-form-urlencoded";
@@ -85,12 +89,39 @@ axios.interceptors.response.use(null, (error) => {
   return Promise.reject(error);
 });
 
+//get post
+function get(url, params) {
+  return new Promise((resolve, reject) => {
+    axios
+      .get(url, {
+        params: params,
+      })
+      .then((res) => {
+        resolve(res.data);
+      })
+      .catch((err) => {
+        reject(err.data);
+      });
+  });
+}
+
+//2 post Content-Type
+function post(url, params) {
+  return new Promise((resolve, reject) => {
+    axios
+      .post(url, params, { headers: { "Content-Type": "application/json" } })
+      .then((res) => {
+        resolve(res.data);
+      })
+      .catch((err) => {
+        reject(err.data);
+      });
+  });
+}
+
 const http = {
-  get: axios.get,
-  post: axios.post,
-  put: axios.put,
-  patch: axios.patch,
-  delete: axios.delete,
+  get,
+  post,
 };
 
 export default http;
