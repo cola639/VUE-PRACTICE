@@ -1,0 +1,19 @@
+<div id="app">
+  <p id="a" v-html="rawHtml">Using mustaches: {{ rawHtml }}</p>
+  <p>Using v-html directive:</p>
+</div>
+
+<body>
+  <script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
+  <!--引入vue js 外部文件-->
+  <script>
+    //vue js 代码写在这里
+
+    var a = new Vue({
+      el: "#app", //绑定的元素
+      data: {
+        rawHtml: '<span style="color:red">利用vue添加了插入一个span 元素</span>', //元素内数据代码 message
+      },
+    });
+  </script>
+</body>
