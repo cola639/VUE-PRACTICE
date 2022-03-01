@@ -59,7 +59,7 @@ const errorHandle = (status, other) => {
 };
 
 //请求配置Url
-axios.default.baseUrl = process.env.REACT_APP_API_URL;
+axios.defaults.baseURL = process.env.REACT_APP_API_URL;
 
 //setting timeout
 axios.defaults.timeout = 12000;
@@ -69,16 +69,12 @@ axios.defaults.timeout = 12000;
 axios.defaults.headers.post["Content-Type"] = "application/json";
 
 //request hedaer
-axios.default.headers.post["Content-Type"] =
-  "application/x-www-form-urlencoded";
+axios.defaults.headers.post["Content-Type"] = "application/x-www-form-urlencoded";
 axios.defaults.headers.common["x-auth-token"] = jwt;
 
 //response catch
 axios.interceptors.response.use(null, (error) => {
-  const expectedError =
-    error.response &&
-    error.response.status >= 400 &&
-    error.response.status < 500;
+  const expectedError = error.response && error.response.status >= 400 && error.response.status < 500;
 
   if (!expectedError) {
     logger.log(error); //错误日志
